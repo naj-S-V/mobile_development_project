@@ -25,6 +25,7 @@ export default function RootLayout() {
     <Tabs.Screen
       name="admin"
       options={{
+        headerShown: false,
         title: "Admin menu",
         // href: null, // Permet de cacher le menu admin
         tabBarIcon: ({ color, size }) => (
