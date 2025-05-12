@@ -7,6 +7,7 @@ export default function RootLayout() {
     <Tabs.Screen
       name="index"
       options={{
+        headerShown: false,
         title: "Search",
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="search" size={size} color={color} />
@@ -14,8 +15,9 @@ export default function RootLayout() {
       }}
     />
     <Tabs.Screen
-      name="second"
+      name="all-recipe"
       options={{
+        headerShown: false,
         title: "All Recipes",
         tabBarIcon: ({ color, size }) => (
           <MaterialIcons name="format-list-bulleted" size={size} color={color} />
