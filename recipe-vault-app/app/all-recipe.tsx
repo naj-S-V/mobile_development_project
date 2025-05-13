@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
+import { getRecipes } from "./api/recipe"; // Import de la fonction getRecipes
 
 export default function SecondScreen() {
   const [data, setData] = useState(null); // État pour stocker les données
@@ -7,12 +8,10 @@ export default function SecondScreen() {
   const [error, setError] = useState(null); // État pour gérer les erreurs
 
   useEffect(() => {
-    // Remplacez l'URL par celle de votre API
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/recipes");
-        const json = await response.json();
-        setData(json); // Stocke les données dans l'état
+        const recipes = await getRecipes(); // Appel de la fonction getRecipes
+        setData(recipes); // Stocke les données dans l'état
       } catch (err) {
         setError(err); // Gère les erreurs
       } finally {
