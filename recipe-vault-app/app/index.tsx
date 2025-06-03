@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { getRecipesByIngredients } from "./api/recipe"; // Import de la fonction getRecipesByIngredients
 
 export default function Index() {
@@ -9,24 +9,29 @@ export default function Index() {
   const [loading, setLoading] = useState(false); // État pour gérer le chargement
   const [error, setError] = useState(null); // État pour gérer les erreurs
 
-  const addIngredient = () => {
+  const addIngredientAndFetchRecipes = async () => {
     if (ingredient.trim() !== "") {
-      setIngredients([...ingredients, ingredient.trim()]); // Ajoute l'ingrédient à la liste
+      const updatedIngredients = [...ingredients, ingredient.trim()]; // Ajoute l'ingrédient à la liste
+      setIngredients(updatedIngredients); // Met à jour la liste des ingrédients
       setIngredient(""); // Réinitialise le champ de saisie
+
+      // Recherche des recettes avec les ingrédients mis à jour
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await getRecipesByIngredients(updatedIngredients); // Appel de la fonction getRecipesByIngredients
+        setRecipes(data); // Stocke les données des recettes
+      } catch (err) {
+        setError(err.message || String(err)); // Gère les erreurs
+      } finally {
+        setLoading(false); // Arrête le chargement
+      }
     }
   };
 
-  const fetchRecipes = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await getRecipesByIngredients(ingredients); // Appel de la fonction getRecipesByIngredients
-      setRecipes(data); // Stocke les données des recettes
-    } catch (err) {
-      setError(err.message); // Gère les erreurs
-    } finally {
-      setLoading(false); // Arrête le chargement
-    }
+  const clearIngredients = () => {
+    setIngredients([]); // Vide la liste des ingrédients
+    setRecipes(null); // Réinitialise les recettes affichées
   };
 
   return (
@@ -39,33 +44,33 @@ export default function Index() {
         className="border border-gray-300 rounded-lg p-2 mb-4 bg-white"
       />
 
-      {/* Bouton pour ajouter l'ingrédient */}
+      {/* Bouton pour ajouter l'ingrédient et rechercher les recettes */}
       <TouchableOpacity
-        onPress={addIngredient}
+        onPress={addIngredientAndFetchRecipes}
         className="bg-blue-500 rounded-lg p-3 mb-4"
       >
-        <Text className="text-white text-center font-bold">Add Ingredient</Text>
+        <Text className="text-white text-center font-bold">Add Ingredient & Search Recipes</Text>
       </TouchableOpacity>
 
       {/* Liste des ingrédients */}
-      <FlatList
-        data={ingredients}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <Text className="text-gray-800 text-lg mb-2">• {item}</Text>
-        )}
-        ListEmptyComponent={
+      <View className="mb-4">
+        {ingredients.length === 0 ? (
           <Text className="text-gray-500 text-center">No ingredients added yet.</Text>
-        }
-      />
-
-      {/* Bouton pour rechercher les recettes */}
-      <TouchableOpacity
-        onPress={fetchRecipes}
-        className="bg-green-500 rounded-lg p-3 mt-4"
-      >
-        <Text className="text-white text-center font-bold">Search Recipes</Text>
-      </TouchableOpacity>
+        ) : (
+          <>
+            {ingredients.map((item, index) => (
+              <Text key={index} className="text-gray-800 text-lg mb-2">• {item}</Text>
+            ))}
+            {/* Bouton pour supprimer tous les ingrédients */}
+            <TouchableOpacity
+              onPress={clearIngredients}
+              className="bg-red-500 rounded-lg p-3 mt-4"
+            >
+              <Text className="text-white text-center font-bold">Clear All Ingredients</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </View>
 
       {/* Affichage des résultats */}
       {loading && <Text className="text-lg text-center mt-4">Loading...</Text>}
