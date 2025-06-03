@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { getRecipesByIngredients } from "./api/recipe"; // Import de la fonction getRecipesByIngredients
+import { getRecipesByIngredients } from "../api/recipe"; // Import de la fonction getRecipesByIngredients
 
 export default function Index() {
   const [ingredient, setIngredient] = useState(""); // État pour l'ingrédient en cours de saisie

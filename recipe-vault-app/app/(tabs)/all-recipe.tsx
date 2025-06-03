@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
-import { getRecipes } from "./api/recipe"; // Import de la fonction getRecipes
+import { getRecipes } from "../api/recipe"; // Import de la fonction getRecipes
 
 export default function SecondScreen() {
   const [data, setData] = useState(null); // État pour stocker les données
