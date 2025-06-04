@@ -17,6 +17,10 @@ export default function ThirdScreen() {
       <Link href="/admin/remove-user" push asChild>
         <Button title="Remove user" />
       </Link>
+      
+      <Link href="/admin/update-user" push asChild>
+        <Button title="Update user" />
+      </Link>
 
     </View>
   );

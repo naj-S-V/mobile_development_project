@@ -9,6 +9,7 @@ export default function Layout() {
             }} />
             <Stack.Screen name="add-user" options={{ title: "Add user" }} />
             <Stack.Screen name="remove-user" options={{ title: "Remove user" }} />
+            <Stack.Screen name="update-user" options={{ title: "Update user" }} />
         </Stack>
     );
 }
