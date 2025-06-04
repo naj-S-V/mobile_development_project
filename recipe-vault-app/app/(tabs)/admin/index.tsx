@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
-import { Button } from "../../components/Button";
+import { Button } from "../../../components/Button";
 
 
 export default function ThirdScreen() {
@@ -8,14 +8,14 @@ export default function ThirdScreen() {
     <View className="flex-1 items-center justify-center">
      
       <Text className="text-4xl font-bold text-blue-500 mb-4">
-        Third screen
+        Admin menu
       </Text>
-      <Link href="/admin/nested" push asChild>
-        <Button title="Go to nested screen" />
+      <Link href="/admin/add-user" push asChild>
+        <Button title="Add user" />
       </Link>
 
-      <Link href="/admin/also-nested" push asChild>
-        <Button title="Go to also-nested screen" />
+      <Link href="/admin/remove-user" push asChild>
+        <Button title="Remove user" />
       </Link>
 
     </View>

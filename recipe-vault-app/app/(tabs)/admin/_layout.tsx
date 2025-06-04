@@ -7,8 +7,8 @@ export default function Layout() {
                 title: "Admin",
                 headerShown: false
             }} />
-            <Stack.Screen name="nested" options={{ title: "Nested" }} />
-            <Stack.Screen name="also-nested" options={{ title: "Also nested" }} />
+            <Stack.Screen name="nested" options={{ title: "Add user" }} />
+            <Stack.Screen name="also-nested" options={{ title: "Delete user" }} />
         </Stack>
     );
 }

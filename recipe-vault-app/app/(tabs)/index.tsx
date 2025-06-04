@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { getRecipesByIngredients } from "./api/recipe"; // Import de la fonction getRecipesByIngredients
+import { getRecipesByIngredients } from "../api/recipe"; // Import de la fonction getRecipesByIngredients
 
 export default function Index() {
   const [ingredient, setIngredient] = useState(""); // État pour l'ingrédient en cours de saisie
@@ -77,9 +77,33 @@ export default function Index() {
       {error && <Text className="text-red-500 text-center mt-4">Error: {error}</Text>}
       {recipes && (
         <ScrollView className="mt-4">
-          <Text className="text-sm text-gray-800">
-            {JSON.stringify(recipes, null, 2)}
-          </Text>
+          {recipes.map((recipe) => (
+            <View
+              key={recipe.id}
+              className="bg-white rounded-xl shadow-md p-4 mb-4"
+            >
+              <Text className="text-xl font-bold mb-1">{recipe.title}</Text>
+              <Text className="text-gray-500 mb-2">
+                ⏱️ {recipe.duration} min
+              </Text>
+              <Text className="font-semibold mb-1">Ingrédients :</Text>
+              <View className="mb-2">
+                {recipe.ingredients.map((ingredient) => (
+                  <Text key={ingredient.id} className="text-gray-700 ml-2">
+                    • {ingredient.name} : {ingredient.quantity} {ingredient.unit}
+                  </Text>
+                ))}
+              </View>
+              <Text className="font-semibold mb-1">Étapes :</Text>
+              <View>
+                {recipe.steps.map((step, idx) => (
+                  <Text key={idx} className="text-gray-700 ml-2">
+                    {idx + 1}. {step}
+                  </Text>
+                ))}
+              </View>
+            </View>
+          ))}
         </ScrollView>
       )}
     </View>

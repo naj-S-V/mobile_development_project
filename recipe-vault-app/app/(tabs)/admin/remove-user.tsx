@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-export default function ThirdAlsoNestedScreen() {
+export default function ThirdNestedScreen() {
   return (
     <View
       style={{
@@ -9,7 +9,8 @@ export default function ThirdAlsoNestedScreen() {
         alignItems: "center",
       }}
     >
-      <Text>Third screen</Text>
+      <Text>Remove screen</Text>
     </View>
   );
 }
+ 
