@@ -14,20 +14,22 @@ export default function Login() {
       const body = new FormData();
       body.append("email", loginValue);
       body.append("password", password);
-      const response = await fetch("http://localhost:3000/api/connexion", {
+      const response = await fetch("http://localhost:3000/api/connection", {
         method: "POST",
         credentials: "include",
         body,
       });
+      const data = await response.json();
+      console.log("Réponse de la connexion: ", data);
       if (!response.ok) {
-        const data = await response.json();
         throw new Error(data.error || "Erreur lors de la connexion");
       }
     },
     onError: (error) => {
       setError(error.message);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      // console.log("Connexion réussie: ", data);
       queryClient.invalidateQueries();
     },
   });

@@ -10,7 +10,7 @@ export function useAuth() {
       const data = await res.json();
       return data as { email: string; passeword: string, isAdmin: boolean };
     },
-    queryKey: ["getUser"],
+    queryKey: ["getUserConnected"],
   });
 
   const login = useMutation({
@@ -21,7 +21,7 @@ export function useAuth() {
       });
     },
     onSuccess() {
-      client.invalidateQueries({ queryKey: ["getUser"] });
+      client.invalidateQueries({ queryKey: ["getUserConnected"] });
     },
   });
 
@@ -33,7 +33,7 @@ export function useAuth() {
       });
     },
     onSuccess() {
-      client.invalidateQueries({ queryKey: ["getUser"] });
+      client.invalidateQueries({ queryKey: ["getUserConnected"] });
     },
   });
   return { user: user?.data, login: login.mutate, logout: logout.mutate };

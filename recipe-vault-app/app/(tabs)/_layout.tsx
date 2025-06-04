@@ -34,7 +34,7 @@ export default function RootLayout() {
                     tabBarIcon: ({ color, size }) => (
                         <MaterialIcons name="admin-panel-settings" size={size} color={color} />
                     ),
-                    href: user?.isAdmin ? "/admin" : null,
+                    // href: user?.isAdmin ? "/admin" : null,
                 }}
             />
             <Tabs.Screen
